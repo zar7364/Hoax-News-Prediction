@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AntiHoaxID Indonesia - Deteksi Berita Hoax</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="fav.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="fav.png" />
+  <meta name="theme-color" content="#1085d4" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AntiHoaxID" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- ===== LEFT - Sky Panel ===== -->
+    <div class="left-panel">
+
+      <!-- Nav -->
+      <div class="lp-nav">
+        <div class="brand">
+          <img src="Logo.png" alt="AntiHoaxID" class="brand-logo" />
+        </div>
+      </div>
+
+      <!-- Hero Text -->
+      <div class="lp-body">
+        <h1 class="lp-title">
+          Melawan hoax<br />
+          dengan <span class="lime">AI</span><br />
+          dan data
+        </h1>
+
+        <p class="lp-sub">
+          Unggah dokumen atau tempel teks berita.
+          Sistem kami menganalisis dan memberikan
+          penilaian akurasi secara instan.
+        </p>
+
+        <!-- Stats + How button row -->
+        <div class="lp-action-row">
+          <div class="lp-stats">
+            <div class="stat-item">
+              <span class="stat-val">82%</span>
+              <span class="stat-lbl">Akurasi</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <span class="stat-val">90%</span>
+              <span class="stat-lbl">Presisi Hoax</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <span class="stat-val">88%</span>
+              <span class="stat-lbl">Recall Hoax</span>
+            </div>
+          </div>
+
+          <button class="how-btn" onclick="document.getElementById('howModal').classList.remove('hidden')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="how-label">How does it work?</span>
+          </button>
+
+          <div class="affil-row">
+            <img src="Logo Ugm.png"  class="affil-logo" alt="UGM"  />
+            <img src="Logo DIKE.jfif" class="affil-logo" alt="DIKE" />
+            <img src="Logo DCSE.png" class="affil-logo" alt="DCSE" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <p class="lp-foot">&copy; 2026 AntiHoaxID Indonesia</p>
+      <p class="lp-credit">#SummerCourseAI&amp;Robotics &nbsp;|&nbsp; DCSE UGM &nbsp;|&nbsp; Nezar Abdilah Prakasa</p>
+    </div>
+
+    <!-- ===== RIGHT - Detector Panel ===== -->
+    <div class="right-panel">
+
+      <!-- Detector Card -->
+      <div class="detector-card" id="detectorCard">
+
+        <div class="card-header">
+          <h2 class="card-title">Deteksi Berita</h2>
+          <p class="card-sub">Unggah dokumen atau tempel teks untuk dianalisis</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="upload" onclick="switchTab('upload')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Unggah Dokumen
+          </button>
+          <button class="tab-btn" data-tab="text" onclick="switchTab('text')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Tempel Teks
+          </button>
+        </div>
+
+        <!-- Upload Tab -->
+        <div id="tab-upload" class="tab-content active">
+          <div class="drop-zone" id="dropZone"
+            onclick="document.getElementById('fileInput').click()"
+            ondragover="handleDragOver(event)"
+            ondragleave="handleDragLeave(event)"
+            ondrop="handleDrop(event)">
+            <div class="dz-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="12" x2="12" y2="18"/>
+                <polyline points="9 15 12 12 15 15"/>
+              </svg>
+            </div>
+            <p class="dz-title">Seret &amp; Lepas file di sini</p>
+            <p class="dz-sub">atau <span class="dz-link">klik untuk memilih</span></p>
+            <div class="dz-badges">
+              <span class="dz-badge">PDF</span>
+              <span class="dz-badge">DOCX</span>
+              <span class="dz-badge">DOC</span>
+              <span class="dz-limit">Maks. 10 MB</span>
+            </div>
+            <input type="file" id="fileInput"
+              accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              style="display:none" onchange="handleFileSelect(event)" />
+          </div>
+
+          <div id="filePreview" class="file-preview hidden">
+            <div class="fp-row">
+              <div class="fp-icon" id="fileIcon"></div>
+              <div class="fp-info">
+                <p class="fp-name" id="fileName"></p>
+                <p class="fp-size" id="fileSize"></p>
+              </div>
+              <button class="fp-del" onclick="removeFile()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Tab -->
+        <div id="tab-text" class="tab-content">
+          <div class="ta-wrap">
+            <textarea id="textInput" class="ta"
+              placeholder="Tempel atau ketik teks berita yang ingin Anda verifikasi di sini..."
+              oninput="handleTextInput()" maxlength="50000"></textarea>
+            <div class="ta-foot">
+              <span class="ta-count"><span id="charCount">0</span> / 50.000 karakter</span>
+              <button class="ta-clear" onclick="clearText()">Hapus</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div id="errorMsg" class="err-msg hidden">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span id="errorText"></span>
+        </div>
+
+        <!-- Submit -->
+        <button class="submit-btn" id="submitBtn" onclick="analyzeContent()" disabled>
+          <span id="submitLabel">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            Analisis Sekarang
+          </span>
+          <span id="submitLoading" class="hidden">
+            <span class="spin"></span> Menganalisis...
+          </span>
+        </button>
+      </div>
+
+      <!-- Result Modal (fullscreen overlay) -->
+      <div id="resultModal" class="result-modal hidden" onclick="handleModalClick(event)">
+      <div id="resultPanel" class="result-panel">
+        <div class="rp-head">
+          <h3>Hasil Analisis</h3>
+          <button class="rp-close" onclick="analyzeAgain()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="verdict-box" id="verdictBox">
+          <div id="verdictIcon" class="v-icon"></div>
+          <div class="v-info">
+            <p class="v-label">Kesimpulan</p>
+            <p id="verdictText" class="v-text"></p>
+          </div>
+          <div id="confidenceBadge" class="v-badge"></div>
+        </div>
+
+        <div class="conf-row">
+          <span>Tingkat Kepercayaan</span>
+          <span id="confidencePercent" class="conf-num"></span>
+        </div>
+        <div class="conf-bar"><div id="confidenceFill" class="conf-fill"></div></div>
+
+        <!-- Score breakdown -->
+        <div id="scoreBreakdown" class="score-breakdown hidden">
+          <p class="det-title">Breakdown Skor</p>
+          <div class="sb-row">
+            <span class="sb-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+              Model ML
+            </span>
+            <span class="sb-val" id="mlScore"></span>
+          </div>
+          <div class="sb-row">
+            <span class="sb-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Verifikasi Web
+            </span>
+            <span class="sb-val" id="fcScore"></span>
+          </div>
+          <div class="sb-row sb-total">
+            <span class="sb-label">Skor Hoax Akhir</span>
+            <span class="sb-val" id="wmlScore"></span>
+          </div>
+        </div>
+
+        <!-- Explainable AI -->
+        <div id="xaiSection" class="xai-section hidden">
+          <p class="det-title">Detail Analysis</p>
+          <p class="xai-summary" id="xaiSummary"></p>
+          <div class="xai-columns">
+            <div class="xai-col">
+              <div class="xai-col-header xai-hoax-head">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Pemicu Hoax
+              </div>
+              <div id="hoaxWords" class="xai-words"></div>
+            </div>
+            <div class="xai-col">
+              <div class="xai-col-header xai-valid-head">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Indikasi Valid
+              </div>
+              <div id="validWords" class="xai-words"></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="det-title">Detail Analisis</p>
+        <div id="detailsGrid" class="det-grid"></div>
+
+        <!-- Google search results -->
+        <div id="fcSources" class="fc-sources hidden">
+          <div class="fc-header">
+            <span class="det-title" style="margin:0">Top Hasil Pencarian Google</span>
+            <span class="fc-count" id="fcCount"></span>
+          </div>
+          <div id="fcList" class="fc-list"></div>
+        </div>
+
+        <!-- TurnbackHoax.id results -->
+        <div id="tbhSources" class="fc-sources hidden">
+          <div class="fc-header">
+            <span class="det-title" style="margin:0">Top Hasil TurnbackHoax.id</span>
+            <span class="fc-count" id="tbhCount"></span>
+          </div>
+          <div id="tbhList" class="fc-list"></div>
+        </div>
+
+        <div class="rp-disc">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Hasil bersifat indikatif dan tidak menggantikan verifikasi oleh pemeriksa fakta profesional.
+        </div>
+
+        <button class="again-btn" onclick="analyzeAgain()">Analisis Berita Lain</button>
+      </div>
+      </div><!-- /resultModal -->
+
+    </div><!-- /right-panel -->
+  </div><!-- /shell -->
+
+  <!-- Indonesia pill fixed top-right -->
+  <a href="#" class="nav-pill-fixed">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    Indonesia
+  </a>
+
+  <!-- How does it work PDF Modal -->
+  <div id="howModal" class="how-modal hidden" onclick="if(event.target===this)this.classList.add('hidden')">
+    <div class="how-modal-card">
+      <div class="how-modal-head">
+        <span class="how-modal-title">How does it work?</span>
+        <button class="pwa-close-btn" onclick="document.getElementById('howModal').classList.add('hidden')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <iframe src="Hoax.pdf" class="how-iframe" title="How does it work?"></iframe>
+    </div>
+  </div>
+
+  <!-- Quota Warning Toast -->
+  <div id="quotaToast" class="quota-toast hidden">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div class="quota-info">
+      <p class="quota-title">Kuota pencarian bulan ini habis</p>
+      <p class="quota-sub">Hasil analisis tetap berjalan menggunakan model ML saja. Kuota Serper reset awal bulan depan.</p>
+    </div>
+    <button class="pwa-close-btn" onclick="document.getElementById('quotaToast').classList.add('hidden')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- PWA Install Banner -->
+  <div id="pwaBanner" class="pwa-banner hidden">
+    <img src="Logo.png" class="pwa-logo" alt="AntiHoaxID" />
+    <div class="pwa-info">
+      <p class="pwa-title">Install AntiHoaxID</p>
+      <p class="pwa-sub">Akses cepat dari layar utama</p>
+    </div>
+    <button class="pwa-install-btn" onclick="installPWA()">Install</button>
+    <button class="pwa-close-btn" onclick="dismissBanner()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- iOS install hint -->
+  <div id="iosBanner" class="pwa-banner hidden">
+    <img src="Logo.png" class="pwa-logo" alt="AntiHoaxID" />
+    <div class="pwa-info">
+      <p class="pwa-title">Install AntiHoaxID</p>
+      <p class="pwa-sub">Tap <strong>Share</strong> lalu <strong>Add to Home Screen</strong></p>
+    </div>
+    <button class="pwa-close-btn" onclick="document.getElementById('iosBanner').classList.add('hidden')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- PDF text extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- DOCX text extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+
+    let deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(() => document.getElementById('pwaBanner').classList.remove('hidden'), 2500);
+    });
+
+    async function installPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      dismissBanner();
+    }
+
+    function dismissBanner() {
+      document.getElementById('pwaBanner').classList.add('hidden');
+    }
+
+    window.addEventListener('appinstalled', () => { dismissBanner(); deferredPrompt = null; });
+
+    // iOS Safari tidak punya beforeinstallprompt
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    if (isIOS && !isStandalone) {
+      setTimeout(() => document.getElementById('iosBanner').classList.remove('hidden'), 2500);
+    }
+  </script>
+</body>
+</html>

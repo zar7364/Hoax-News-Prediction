@@ -1,0 +1,25 @@
+{
+  "name": "AntiHoaxID Indonesia",
+  "short_name": "AntiHoaxID",
+  "description": "Deteksi berita hoax dengan AI dan data",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1085d4",
+  "theme_color": "#1085d4",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "fav.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "fav.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
